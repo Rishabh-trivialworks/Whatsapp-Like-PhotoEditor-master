@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -188,29 +189,43 @@ public class PhotoEditorFragment extends BaseFragment
       //
       //  }
       //});
-      Glide.with(this).asBitmap().load(imagePath).into(new SimpleTarget<Bitmap>() {
-        @Override public void onResourceReady(@NonNull Bitmap resource,
-            @Nullable Transition<? super Bitmap> transition) {
-          int currentBitmapWidth = resource.getWidth();
-          int currentBitmapHeight = resource.getHeight();
-          int ivWidth = mainImageView.getWidth();
-          int newHeight = (int) Math.floor(
-              (double) currentBitmapHeight * ((double) ivWidth / (double) currentBitmapWidth));
-          originalBitmap = Bitmap.createScaledBitmap(resource, ivWidth, newHeight, true);
-          mainBitmap = originalBitmap;
-          setImageBitmap(mainBitmap);
-
-          new GetFiltersTask(new TaskCallback<ArrayList<ImageFilter>>() {
-            @Override public void onTaskDone(ArrayList<ImageFilter> data) {
-              FilterImageAdapter filterImageAdapter = (FilterImageAdapter) filterRecylerview.getAdapter();
-              if (filterImageAdapter != null) {
-                filterImageAdapter.setData(data);
-                filterImageAdapter.notifyDataSetChanged();
-              }
-            }
-          }, mainBitmap).execute();
+      CountDownTimer timer = new CountDownTimer(500, 500) {
+        @Override
+        public void onTick(long millisUntilFinished) {
         }
-      });
+
+        @Override
+        public void onFinish() {
+          Glide.with(getContext()).asBitmap().load(imagePath).into(new SimpleTarget<Bitmap>() {
+            @Override public void onResourceReady(@NonNull Bitmap resource,
+                                                  @Nullable Transition<? super Bitmap> transition) {
+              int currentBitmapWidth = resource.getWidth();
+              int currentBitmapHeight = resource.getHeight();
+              int ivWidth = mainImageView.getWidth();
+//          if(ivWidth==0){
+//            ivWidth=1080;
+//          }
+              int newHeight = (int) Math.floor(
+                      (double) currentBitmapHeight * ((double) ivWidth / (double) currentBitmapWidth));
+              originalBitmap = Bitmap.createScaledBitmap(resource, ivWidth, newHeight, true);
+              mainBitmap = originalBitmap;
+              setImageBitmap(mainBitmap);
+
+              new GetFiltersTask(new TaskCallback<ArrayList<ImageFilter>>() {
+                @Override public void onTaskDone(ArrayList<ImageFilter> data) {
+                  FilterImageAdapter filterImageAdapter = (FilterImageAdapter) filterRecylerview.getAdapter();
+                  if (filterImageAdapter != null) {
+                    filterImageAdapter.setData(data);
+                    filterImageAdapter.notifyDataSetChanged();
+                  }
+                }
+              }, mainBitmap).execute();
+            }
+          });
+
+
+        }
+      }.start();
 
 
       Intent intent = getActivity().getIntent();
@@ -369,6 +384,8 @@ public class PhotoEditorFragment extends BaseFragment
     } else {
       paintButton.setBackground(null);
       photoEditorView.hidePaintView();
+      photoEditorView.setColor(0);
+
       //photoEditorView.enableTouch(true);
       //paintEditView.setVisibility(View.GONE);
     }

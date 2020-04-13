@@ -106,8 +106,10 @@ public class CustomPaintView extends View {
 
   @Override protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
-    if (mDrawBit != null) {
+    if (mDrawBit != null && !mDrawBit.isRecycled()) {
       canvas.drawBitmap(mDrawBit, 0, 0, null);
+    }else{
+      generatorBit();
     }
   }
 
@@ -163,7 +165,7 @@ public class CustomPaintView extends View {
       mDrawBit.recycle();
     }
 
-   // generatorBit();
+    generatorBit();
   }
 
   public void setBounds(RectF bitmapRect) {

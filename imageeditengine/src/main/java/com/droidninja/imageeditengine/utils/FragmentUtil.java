@@ -29,9 +29,7 @@ public class FragmentUtil {
 	}
 
 	public static void removeFragment(AppCompatActivity activity, BaseFragment fragment) {
-		activity.getSupportFragmentManager().beginTransaction()
-			.remove(fragment)
-			.commit();
+		activity.getSupportFragmentManager().popBackStackImmediate();
 	}
 
 

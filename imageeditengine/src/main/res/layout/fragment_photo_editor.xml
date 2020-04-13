@@ -110,7 +110,8 @@
         android:layout_marginRight="25dp"
         android:layout_marginTop="10dp"
         android:visibility="invisible"
-        app:defaultColor="@color/checkbox_color"
+      />
+       <!-- app:defaultColor="@color/checkbox_color"-->
         />
 
 
