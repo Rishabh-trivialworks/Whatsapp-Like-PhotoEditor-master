@@ -154,6 +154,7 @@ public class CustomPaintView extends View {
   public void setEraser(boolean eraser) {
     this.eraser = eraser;
     mPaint.setColor(eraser ? Color.TRANSPARENT : mColor);
+    invalidate();
   }
 
   public Bitmap getPaintBit() {

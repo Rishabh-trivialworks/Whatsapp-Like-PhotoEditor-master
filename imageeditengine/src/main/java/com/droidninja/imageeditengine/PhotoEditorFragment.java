@@ -13,6 +13,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -302,20 +303,21 @@ public class PhotoEditorFragment extends BaseFragment
   @Override public void onClick(final View view) {
     int id = view.getId();
     if (id == R.id.crop_btn) {
-      if(selectedFilter!=null){
-        new ApplyFilterTask(new TaskCallback<Bitmap>() {
-          @Override public void onTaskDone(Bitmap data) {
-            if(data!=null) {
-              mListener.onCropClicked(getBitmapCache(data));
-              photoEditorView.hidePaintView();
-            }
-          }
-        }, Bitmap.createBitmap(originalBitmap)).execute(selectedFilter);
-      }
-      else{
-        mListener.onCropClicked(getBitmapCache(originalBitmap));
-        photoEditorView.hidePaintView();
-      }
+//      if(selectedFilter!=null){
+//        new ApplyFilterTask(new TaskCallback<Bitmap>() {
+//          @Override public void onTaskDone(Bitmap data) {
+//            if(data!=null) {
+//              mListener.onCropClicked(getBitmapCache(data));
+//              photoEditorView.hidePaintView();
+//            }
+//          }
+//        }, Bitmap.createBitmap(originalBitmap)).execute(selectedFilter);
+//      }
+//      else{
+//        mListener.onCropClicked(getBitmapCache(originalBitmap));
+//        photoEditorView.hidePaintView();
+//      }
+        photoEditorView.eraserLine(true);
     } else if (id == R.id.stickers_btn) {
       setMode(MODE_STICKER);
     } else if (id == R.id.add_text_btn) {
@@ -365,6 +367,9 @@ public class PhotoEditorFragment extends BaseFragment
 
   private void onAddTextMode(boolean status) {
     if (status) {
+        photoEditorView.eraserLine(false);
+      photoEditorView.setColor(ContextCompat.getColor(getContext(),R.color.checkbox_color));
+      photoEditorView.setTextColor(ContextCompat.getColor(getContext(),R.color.checkbox_color));
       addTextButton.setBackground(
           Utility.tintDrawable(getContext(), R.drawable.circle, photoEditorView.getColor()));
       //photoEditorView.setTextColor(photoEditorView.getColor());
@@ -377,6 +382,8 @@ public class PhotoEditorFragment extends BaseFragment
 
   private void onPaintMode(boolean status) {
     if (status) {
+        photoEditorView.eraserLine(false);
+      photoEditorView.setColor(ContextCompat.getColor(getContext(),R.color.checkbox_color));
       paintButton.setBackground(
           Utility.tintDrawable(getContext(), R.drawable.circle, photoEditorView.getColor()));
       photoEditorView.showPaintView();

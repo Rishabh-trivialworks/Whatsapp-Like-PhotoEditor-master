@@ -111,7 +111,7 @@ public class ImageEditActivity extends BaseImageEditActivity
     }
     // Create a media file name
     File mediaFile;
-    String mImageName="MI_"+".jpg";
+    String mImageName="MI_"+System.currentTimeMillis()+".jpg";
     mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
     return mediaFile;
   }

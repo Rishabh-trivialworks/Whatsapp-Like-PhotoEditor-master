@@ -11,6 +11,8 @@ import android.graphics.RectF;
 import android.support.annotation.Dimension;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -82,10 +84,35 @@ public class PhotoEditorView extends FrameLayout implements ViewTouchListener,
             createText(inputTextET.getText().toString());
             Utility.hideSoftKeyboard((Activity) getContext());
           }
-          inputTextET.setVisibility(INVISIBLE);
+          inputTextET.setVisibility(VISIBLE);
         }
         return false;
       }
+    });
+
+    inputTextET.addTextChangedListener(new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if(s.length()>0){
+                if (selectedView != null) {
+                    ((AutofitTextView) selectedView).setText(inputTextET.getText());
+                   // Utility.hideSoftKeyboard((Activity) getContext());
+                } else {
+                    createText(inputTextET.getText().toString());
+                    //Utility.hideSoftKeyboard((Activity) getContext());
+                }
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
     });
     keyboardHeightProvider = new KeyboardHeightProvider((Activity) getContext());
     keyboardHeightProvider.setKeyboardHeightObserver(this);
@@ -122,6 +149,7 @@ public class PhotoEditorView extends FrameLayout implements ViewTouchListener,
 
   public void setColor(int selectedColor) {
     customPaintView.setColor(selectedColor);
+    invalidate();
   }
 
   public int getColor() {
@@ -173,6 +201,11 @@ public class PhotoEditorView extends FrameLayout implements ViewTouchListener,
     inputTextET.setVisibility(INVISIBLE);
   }
 
+  public void eraserLine(boolean erase){
+      customPaintView.setEraser(erase);
+      invalidate();
+  }
+
   @SuppressLint("ClickableViewAccessibility") @Override public void setOnTouchListener(OnTouchListener l) {
     super.setOnTouchListener(l);
     containerView.setOnTouchListener(l);
@@ -185,6 +218,7 @@ public class PhotoEditorView extends FrameLayout implements ViewTouchListener,
     autofitTextView.setText(text);
     autofitTextView.setTextColor(inputTextET.getCurrentTextColor());
     autofitTextView.setMaxTextSize(Dimension.SP,50);
+    selectedView = autofitTextView;
     MultiTouchListener multiTouchListener =
         new MultiTouchListener(deleteView, container, this.imageView, true, this);
     multiTouchListener.setOnMultiTouchListener(new MultiTouchListener.OnMultiTouchListener() {
@@ -223,7 +257,7 @@ public class PhotoEditorView extends FrameLayout implements ViewTouchListener,
     container.addView(autofitTextView, params);
 
     selectViewIndex = container.getChildAt(container.getChildCount()-1).getId();
-    selectedView = null;
+    //selectedView = null;
   }
 
   @Override public void onStartViewChangeListener(View view) {
