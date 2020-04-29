@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.droidninja.imageeditengine.ImageEditor.EXTRA_IMAGE_PATH;
 
@@ -41,7 +42,7 @@ public class ImageEditActivity extends BaseImageEditActivity
         CropFragment.newInstance(bitmap, cropRect));
   }
 
-  @Override public void onDoneClicked(String imagePath) {
+  @Override public void onDoneClicked(ArrayList<String> imagePath) {
 
     Intent intent = new Intent();
     intent.putExtra(ImageEditor.EXTRA_EDITED_PATH, imagePath);

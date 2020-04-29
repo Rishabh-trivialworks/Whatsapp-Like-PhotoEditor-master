@@ -11,9 +11,8 @@ import android.widget.Toast
 import com.droidninja.imageeditengine.ImageEditor
 import droidninja.filepicker.FilePickerBuilder
 import droidninja.filepicker.FilePickerConst
-import kotlinx.android.synthetic.main.activity_main.select_image_btn;
 import com.tbruyelle.rxpermissions2.RxPermissions
-import kotlinx.android.synthetic.main.activity_main.edited_image
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
           .subscribe({ granted ->
             if (granted) { // Always true pre-M
               // I can control the camera now
-              FilePickerBuilder.getInstance().setMaxCount(1)
+              FilePickerBuilder.getInstance().setMaxCount(4)
                   .setActivityTheme(R.style.LibAppTheme)
                   .pickPhoto(this)
             } else {
@@ -51,10 +50,10 @@ class MainActivity : AppCompatActivity() {
           photoPaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
 
           if (photoPaths.size > 0) {
-            ImageEditor.Builder(this, photoPaths[0])
+            ImageEditor.Builder(this, photoPaths)
                 .setStickerAssets("stickers")
                     .disable(ImageEditor.EDITOR_FILTERS)
-                    .disable(ImageEditor.EDITOR_STICKER)
+                    //.disable(ImageEditor.EDITOR_STICKER)
                 .open()
           } else {
             Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show()
@@ -62,8 +61,14 @@ class MainActivity : AppCompatActivity() {
         }
       ImageEditor.RC_IMAGE_EDITOR ->
         if (resultCode == Activity.RESULT_OK && data != null) {
-          val imagePath: String = data.getStringExtra(ImageEditor.EXTRA_EDITED_PATH)
-          edited_image.setImageBitmap(BitmapFactory.decodeFile(imagePath))
+          val imagePath: ArrayList<String> =  data.getExtras().getStringArrayList(ImageEditor.EXTRA_IMAGE_PATH)
+
+          //val imagePath: String = data.getStringExtra(ImageEditor.EXTRA_EDITED_PATH)
+          edited_image1.setImageBitmap(BitmapFactory.decodeFile(imagePath.get(0)))
+          edited_image2.setImageBitmap(BitmapFactory.decodeFile(imagePath.get(1)))
+          edited_image3.setImageBitmap(BitmapFactory.decodeFile(imagePath.get(2)))
+          edited_image4.setImageBitmap(BitmapFactory.decodeFile(imagePath.get(3)))
+
         }
     }
   }

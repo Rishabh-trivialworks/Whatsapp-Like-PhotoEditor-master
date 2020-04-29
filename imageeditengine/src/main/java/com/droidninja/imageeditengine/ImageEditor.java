@@ -7,6 +7,7 @@ import android.os.Build;
 import android.util.SparseBooleanArray;
 import android.widget.Toast;
 import java.io.File;
+import java.util.ArrayList;
 
 public class ImageEditor {
   public static final int EDITOR_STICKER = 1;
@@ -31,16 +32,16 @@ public class ImageEditor {
 
   public static class Builder{
 
-    private final String imagePath;
+    private  ArrayList<String> imagePath = new ArrayList<>();
     private Activity context;
     private String stickerFolderName;
     private boolean enabledEditorText = true;
     private boolean enabledEditorPaint = true;
-    private boolean enabledEditorSticker = false;
+    private boolean enabledEditorSticker = true;
     private boolean enableEditorCrop = true;
     private boolean enableFilters = true;
 
-    public Builder(Activity context, String imagePath) {
+    public Builder(Activity context, ArrayList<String> imagePath) {
       this.context = context;
       this.imagePath = imagePath;
     }
@@ -72,15 +73,16 @@ public class ImageEditor {
     }
 
     public void open(){
-      if(imagePath!=null && (new File(imagePath).exists())) {
-        Intent intent = new Intent(context, ImageEditActivity.class);
+//      if(imagePath!=null && (new File(imagePath).exists())) {
+      if(imagePath!=null && imagePath.size()>0){
+        Intent intent = new Intent(context, MediaGalleryActivity.class);
         intent.putExtra(ImageEditor.EXTRA_STICKER_FOLDER_NAME, stickerFolderName);
         intent.putExtra(ImageEditor.EXTRA_IS_PAINT_MODE, enabledEditorPaint);
         intent.putExtra(ImageEditor.EXTRA_IS_STICKER_MODE, enabledEditorSticker);
         intent.putExtra(ImageEditor.EXTRA_IS_TEXT_MODE, enabledEditorText);
         intent.putExtra(ImageEditor.EXTRA_IS_CROP_MODE, enableEditorCrop);
         intent.putExtra(ImageEditor.EXTRA_HAS_FILTERS, enableFilters);
-        intent.putExtra(ImageEditor.EXTRA_IMAGE_PATH, imagePath);
+        intent.putStringArrayListExtra(ImageEditor.EXTRA_IMAGE_PATH, imagePath);
         context.startActivityForResult(intent, RC_IMAGE_EDITOR);
       }
       else{

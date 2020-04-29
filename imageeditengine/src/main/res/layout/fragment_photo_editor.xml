@@ -11,6 +11,13 @@
     tools:context=".ImageEditActivity"
     >
 
+  <ProgressBar
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true"
+      android:visibility="gone"
+      android:id="@+id/progressBar"
+      />
   <com.droidninja.imageeditengine.views.imagezoom.ImageViewTouch
       android:id="@+id/image_iv"
       android:layout_width="match_parent"
@@ -38,86 +45,6 @@
       tools:ignore="MissingPrefix"
       />
 
-  <RelativeLayout
-      android:id="@+id/toolbar_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:padding="5dp"
-      >
-
-    <ImageView
-        android:id="@+id/back_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:src="@drawable/ic_cam_back"
-        />
-
-
-    <ImageView
-        android:id="@+id/crop_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_toLeftOf="@+id/stickers_btn"
-        android:layout_toStartOf="@+id/stickers_btn"
-        android:padding="8dp"
-        android:src="@drawable/ic_cam_crop_rotate"
-        />
-
-
-    <ImageView
-        android:id="@+id/stickers_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_toLeftOf="@+id/add_text_btn"
-        android:layout_toStartOf="@+id/add_text_btn"
-        android:padding="8dp"
-        android:src="@drawable/ic_cam_sticker"
-        />
-
-
-    <ImageView
-        android:id="@+id/add_text_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_toLeftOf="@+id/paint_btn"
-        android:layout_toStartOf="@+id/paint_btn"
-        android:padding="8dp"
-        android:src="@drawable/ic_cam_text"
-        />
-
-    <ImageView
-        android:id="@+id/paint_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:padding="8dp"
-        android:src="@drawable/ic_cam_draw"
-        />
-
-    <com.droidninja.imageeditengine.views.VerticalSlideColorPicker
-        android:id="@+id/color_picker_view"
-        android:layout_width="10dp"
-        android:layout_height="220dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/paint_btn"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="10dp"
-        android:visibility="invisible"
-      />
-       <!-- app:defaultColor="@color/checkbox_color"-->
-        />
-
-
-  </RelativeLayout>
-
-
   <TextView
       android:id="@+id/filter_label"
       android:layout_width="wrap_content"
@@ -134,16 +61,7 @@
       android:textColor="@color/white"
       />
 
-  <android.support.design.widget.FloatingActionButton
-      android:id="@+id/done_btn"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_alignParentRight="true"
-      android:layout_alignParentEnd="true"
-      android:layout_margin="@dimen/done_btn_margin"
-      app:srcCompat="@drawable/ic_done"
-      />
+
 
   <RelativeLayout
       android:id="@+id/filter_list_layout"
@@ -168,5 +86,6 @@
         tools:listitem="@layout/item_filter_layout"
         />
   </RelativeLayout>
+
 
 </RelativeLayout>

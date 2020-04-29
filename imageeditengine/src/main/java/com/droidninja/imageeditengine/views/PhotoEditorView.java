@@ -156,6 +156,10 @@ public class PhotoEditorView extends FrameLayout implements ViewTouchListener,
     return customPaintView.getColor();
   }
 
+  public int getTextColor() {
+    return inputTextET.getCurrentTextColor();
+  }
+
   public Bitmap getPaintBit() {
     return customPaintView.getPaintBit();
   }

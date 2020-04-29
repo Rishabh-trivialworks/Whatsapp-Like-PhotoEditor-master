@@ -108,7 +108,8 @@ public class CustomPaintView extends View {
     super.onDraw(canvas);
     if (mDrawBit != null && !mDrawBit.isRecycled()) {
       canvas.drawBitmap(mDrawBit, 0, 0, null);
-    }else{
+    }
+    else{
       generatorBit();
     }
   }

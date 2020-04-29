@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:colorpicker="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_media_gallery"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+
+
+    <RelativeLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/done_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/done_btn_margin"
+            app:srcCompat="@drawable/ic_done" />
+
+        <com.droidninja.imageeditengine.LockViewpager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <RelativeLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/back_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/ic_cam_back" />
+
+
+            <ImageView
+                android:id="@+id/crop_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toStartOf="@+id/stickers_btn"
+                android:layout_toLeftOf="@+id/stickers_btn"
+                android:padding="8dp"
+                android:src="@drawable/ic_cam_crop_rotate" />
+
+
+            <ImageView
+                android:id="@+id/stickers_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toStartOf="@+id/add_text_btn"
+                android:layout_toLeftOf="@+id/add_text_btn"
+                android:padding="8dp"
+                android:src="@drawable/ic_cam_sticker" />
+
+
+            <ImageView
+                android:id="@+id/add_text_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toStartOf="@+id/paint_btn"
+                android:layout_toLeftOf="@+id/paint_btn"
+                android:padding="8dp"
+                android:src="@drawable/ic_cam_text" />
+
+            <ImageView
+                android:id="@+id/paint_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_cam_draw" />
+
+            <com.droidninja.imageeditengine.views.VerticalSlideColorPicker
+                android:id="@+id/color_picker_view"
+                android:layout_width="10dp"
+                android:layout_height="220dp"
+                android:layout_below="@+id/paint_btn"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="25dp"
+                android:visibility="invisible" />
+            <!-- app:defaultColor="@color/checkbox_color"-->
+            />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</FrameLayout>
